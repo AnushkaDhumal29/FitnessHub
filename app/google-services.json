@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "300469338729",
+    "project_id": "fitnesshub-bc432",
+    "storage_bucket": "fitnesshub-bc432.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300469338729:android:8000f17d3b9e3cdea2d8f8",
+        "android_client_info": {
+          "package_name": "com.v2v.fitnesshub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300469338729-5rlit1toissofulic4ib26a4dp8clucl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.v2v.fitnesshub",
+            "certificate_hash": "ea8d081fc267949cc7f7b887e2f643e70f28ac0c"
+          }
+        },
+        {
+          "client_id": "300469338729-3i8s8la1o0crshidkr7df2c6hs8g7qf7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6c83ESvSirWJLFP3hMFKOgo_23SCDxvo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300469338729-3i8s8la1o0crshidkr7df2c6hs8g7qf7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

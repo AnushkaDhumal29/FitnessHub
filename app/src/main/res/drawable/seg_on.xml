@@ -1,0 +1,15 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <!-- Glow -->
+        <shape>
+            <corners android:radius="22dp"/>
+            <solid android:color="#40FF1E1E"/> <!-- Red glow -->
+        </shape>
+    </item>
+    <item android:left="1dp" android:right="1dp" android:top="1dp" android:bottom="1dp">
+        <shape>
+            <corners android:radius="20dp"/>
+            <gradient android:startColor="#FF4B2B" android:endColor="#FF1E1E" android:angle="0"/>
+        </shape>
+    </item>
+</layer-list>
