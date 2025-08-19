@@ -1,6 +1,7 @@
 package com.v2v.fitnesshub;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.EditText;
@@ -59,7 +60,8 @@ public class MainScreenActivity extends AppCompatActivity {
                 Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show();
                 return true;
             } else if (id == R.id.nav_progress) {
-                Toast.makeText(this, "Progress clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this,ProgressActivity.class);
+                startActivity(intent);
                 return true;
             } else if (id == R.id.nav_plan) {
                 Toast.makeText(this, "Plan clicked", Toast.LENGTH_SHORT).show();
