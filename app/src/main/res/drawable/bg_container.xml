@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Glow layer -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000"/>
+            <stroke android:width="4dp" android:color="#80FF4B2B"/> <!-- Semi-transparent red glow -->
+            <corners android:radius="14dp"/>
+        </shape>
+    </item>
+
+    <!-- Main card -->
+    <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#0A0A0F"/> <!-- Dark background -->
+            <stroke android:width="2dp" android:color="#FF4B2B"/> <!-- Bright red neon border -->
+            <corners android:radius="12dp"/>
+        </shape>
+    </item>
+</layer-list>

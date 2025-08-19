@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="seg_text_on">#FFFFFF</color>
     <color name="seg_text_off">#FFB3B3</color>
+    <color name="purple_500">#9C27B0</color>
 </resources>

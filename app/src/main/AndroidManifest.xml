@@ -22,6 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".ProfileActivity"/>
+        <activity android:name=".MainScreenActivity"/>
     </application>
 
 </manifest>

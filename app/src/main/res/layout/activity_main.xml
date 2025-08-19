@@ -14,7 +14,6 @@
 
 
     <!-- Center card -->
-    <!-- Center card, moved slightly down -->
     <LinearLayout
         android:id="@+id/card"
         android:layout_width="match_parent"

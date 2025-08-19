@@ -3,30 +3,39 @@ package com.v2v.fitnesshub;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+import android.widget.VideoView;
+import android.widget.ViewFlipper;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.auth.api.signin.*;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.firebase.auth.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText etLoginEmail, etLoginPassword, etRegEmail, etRegPassword;
+    EditText etLoginUser, etLoginPassword;
     Button btnLogin, btnRegister;
     RadioGroup rgTabs;
+    RadioButton tabLogin, tabRegister;
     ViewFlipper authFlipper;
     VideoView videoView;
-    SignInButton btnGoogleLogin, btnGoogleRegister;
+    SignInButton signInButtonLogin, signInButtonRegister;
 
-    FirebaseAuth mAuth;
     GoogleSignInClient googleSignInClient;
 
+    // Activity Result Launcher for Google Sign-In
     ActivityResultLauncher<Intent> googleSignInLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -35,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
                         GoogleSignInAccount account = GoogleSignIn.getSignedInAccountFromIntent(result.getData())
                                 .getResult(ApiException.class);
                         if (account != null) {
-                            firebaseAuthWithGoogle(account.getIdToken());
+                            String name = account.getDisplayName();
+                            String email = account.getEmail();
+                            Toast.makeText(this, "Signed in as: " + name, Toast.LENGTH_SHORT).show();
                         }
                     } catch (ApiException e) {
                         Toast.makeText(this, "Google Sign-In failed", Toast.LENGTH_SHORT).show();
@@ -45,99 +56,81 @@ public class MainActivity extends AppCompatActivity {
     );
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance();
-
-        // Video background
+        // Video background setup
         videoView = findViewById(R.id.videoView);
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.background_video);
         videoView.setVideoURI(uri);
-        videoView.setOnPreparedListener(mp -> { mp.setLooping(true); videoView.start(); });
+        videoView.setOnPreparedListener(mp -> {
+            mp.setLooping(true);
+            videoView.start();
+        });
 
-        // Login
-        etLoginEmail = findViewById(R.id.etLoginUser);
+        // Login fields
+        etLoginUser = findViewById(R.id.etLoginUser);
         etLoginPassword = findViewById(R.id.etLoginPassword);
         btnLogin = findViewById(R.id.btnLogin);
 
-        // Register
-        etRegEmail = findViewById(R.id.etRegEmail);
-        etRegPassword = findViewById(R.id.etRegPassword);
+        // Register fields
         btnRegister = findViewById(R.id.btnRegister);
 
         // Google buttons
-        btnGoogleLogin = findViewById(R.id.signInButtonLogin);
-        btnGoogleRegister = findViewById(R.id.signInButtonRegister);
+        signInButtonLogin = findViewById(R.id.signInButtonLogin);
+        signInButtonRegister = findViewById(R.id.signInButtonRegister);
 
-        // Tabs
+        // Tabs and ViewFlipper
         rgTabs = findViewById(R.id.rgTabs);
+        tabLogin = findViewById(R.id.tabLogin);
+        tabRegister = findViewById(R.id.tabRegister);
         authFlipper = findViewById(R.id.authFlipper);
-        rgTabs.setOnCheckedChangeListener((g, id) -> authFlipper.setDisplayedChild(id == R.id.tabLogin ? 0 : 1));
 
-        // Google Sign-In setup
+        // Google Sign-In Options
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // Email login
+        // Switch forms when tabs change
+        rgTabs.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.tabLogin) {
+                authFlipper.setDisplayedChild(0);
+            } else if (checkedId == R.id.tabRegister) {
+                authFlipper.setDisplayedChild(1);
+            }
+        });
+
+        // Login button click
         btnLogin.setOnClickListener(v -> {
-            String email = etLoginEmail.getText().toString().trim();
-            String pass = etLoginPassword.getText().toString().trim();
-            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
-                show("Enter email & password");
-                return;
+            String username = etLoginUser.getText().toString().trim();
+            String password = etLoginPassword.getText().toString().trim();
+
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(MainActivity.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
             }
-            mAuth.signInWithEmailAndPassword(email, pass)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) goHome();
-                        else show("Login failed: " + task.getException().getMessage());
-                    });
         });
 
-        // Email register
-        btnRegister.setOnClickListener(v -> {
-            String email = etRegEmail.getText().toString().trim();
-            String pass = etRegPassword.getText().toString().trim();
-            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
-                show("Enter email & password");
-                return;
-            }
-            mAuth.createUserWithEmailAndPassword(email, pass)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) goHome();
-                        else show("Registration failed: " + task.getException().getMessage());
-                    });
-        });
+        // Register button click
+        btnLogin.setOnClickListener(v -> {
+            String username = etLoginUser.getText().toString().trim();
+            String password = etLoginPassword.getText().toString().trim();
 
-        // Google sign-in buttons
-        btnGoogleLogin.setOnClickListener(v -> signInWithGoogle());
-        btnGoogleRegister.setOnClickListener(v -> signInWithGoogle());
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(MainActivity.this, "Please enter all fields", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void signInWithGoogle() {
-        googleSignInLauncher.launch(googleSignInClient.getSignInIntent());
-    }
-
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential cred = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(cred)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) goHome();
-                    else show("Google auth failed: " + task.getException().getMessage());
-                });
-    }
-
-    private void goHome() {
-        show("Welcome " + (mAuth.getCurrentUser() != null ? mAuth.getCurrentUser().getEmail() : ""));
-        // startActivity(new Intent(this, HomeActivity.class));
-        // finish();
-    }
-
-    private void show(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        googleSignInLauncher.launch(signInIntent);
     }
 }
