@@ -40,6 +40,13 @@
         <activity android:name=".ProfileActivity"/>
         <activity android:name=".MainScreenActivity"/>
         <activity android:name=".ProgressActivity"/>
+        <activity android:name=".GameActivity"/>
+        <activity android:name=".BreathingBubbleActivity"/>
+        <activity android:name=".CatchAndTapActivity"/>
+        <activity android:name=".MemoryWorkoutActivity"/>
+        <activity android:name=".FitFlashActivity"/>
+        <activity android:name=".MemoryTapActivity"/>
+        <activity android:name=".QuizGameActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

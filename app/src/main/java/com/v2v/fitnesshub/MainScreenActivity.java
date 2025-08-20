@@ -34,6 +34,7 @@ public class MainScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainscreen_activity);
 
+
         // Find views
         editSleep = findViewById(R.id.editSleep);
         editWorkout = findViewById(R.id.editWorkout);
@@ -87,7 +88,8 @@ public class MainScreenActivity extends AppCompatActivity {
                 } else if (id == R.id.menu_info) {
                     Toast.makeText(MainScreenActivity.this, "Info clicked", Toast.LENGTH_SHORT).show();
                 } else if (id == R.id.menu_game) {
-                    Toast.makeText(MainScreenActivity.this, "Game clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainScreenActivity.this, GameActivity.class);
+                    startActivity(intent);
                 } else if (id == R.id.menu_nearby) {
                     Toast.makeText(MainScreenActivity.this, "Nearby Search clicked", Toast.LENGTH_SHORT).show();
                 } else {
