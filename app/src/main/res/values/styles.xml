@@ -11,4 +11,15 @@
         <item name="android:padding">10dp</item>
         <item name="android:background">@drawable/bg_button_neon</item>
     </style>
+    <style name="VibrantButton">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:backgroundTint">#FF4081</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:elevation">8dp</item>
+    </style>
 </resources>
