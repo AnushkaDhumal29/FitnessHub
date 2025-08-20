@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:gravity="center">
+
+    <!-- Breathing Bubble -->
+    <ImageView
+        android:id="@+id/breathingBubble"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/ic_bubble"
+    android:scaleType="centerInside"
+    android:layout_centerInParent="true"/>
+
+    <!-- Instruction Text -->
+    <TextView
+        android:id="@+id/breathingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ready?"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:layout_below="@id/breathingBubble"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"/>
+
+</RelativeLayout>

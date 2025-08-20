@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- ScrollView with game UI -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1E1E2F"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <!-- Exercise Display -->
+            <TextView
+                android:id="@+id/exerciseText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Exercise"
+                android:textSize="30sp"
+                android:textColor="#FFD700"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Timer Bar -->
+            <ProgressBar
+                android:id="@+id/timerBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:progress="0"
+                android:max="3000"
+                android:progressDrawable="@android:drawable/progress_horizontal"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Score and Level -->
+            <TextView
+                android:id="@+id/scoreText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score: 0"
+                android:textSize="20sp"
+                android:textColor="#00FFFF"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/levelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level: 1"
+                android:textSize="20sp"
+                android:textColor="#00FFFF"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Buttons Layout -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <!-- First Row -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+
+                    <Button
+                        android:id="@+id/button1"
+                        style="@style/VibrantButton"
+                        android:text="Push-up"/>
+
+                    <Button
+                        android:id="@+id/button2"
+                        style="@style/VibrantButton"
+                        android:text="Jump"/>
+                </LinearLayout>
+
+                <!-- Second Row -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp">
+
+                    <Button
+                        android:id="@+id/button3"
+                        style="@style/VibrantButton"
+                        android:text="Squat"/>
+
+                    <Button
+                        android:id="@+id/button4"
+                        style="@style/VibrantButton"
+                        android:text="Lunge"/>
+                </LinearLayout>
+
+                <!-- Third Row -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/button5"
+                        style="@style/VibrantButton"
+                        android:text="Burpee"/>
+
+                    <Button
+                        android:id="@+id/button6"
+                        style="@style/VibrantButton"
+                        android:text="Plank"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Confetti overlay -->
+    <FrameLayout
+        android:id="@+id/confettiContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>

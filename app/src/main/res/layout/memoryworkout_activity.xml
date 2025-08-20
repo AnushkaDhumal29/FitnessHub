@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212">
+
+    <!-- Main Game Layout -->
+    <LinearLayout
+        android:id="@+id/gameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="16dp">
+
+        <!-- Score -->
+        <TextView
+            android:id="@+id/scoreText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score: 0"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Timer -->
+        <TextView
+            android:id="@+id/timerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⏳ Time: 60s"
+            android:textColor="#FFEB3B"
+            android:textSize="20sp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Game Grid (fills free space & centers) -->
+        <GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:alignmentMode="alignBounds"
+            android:columnCount="4"
+            android:rowCount="3"
+            android:useDefaultMargins="true"
+            android:gravity="center"/>
+
+        <!-- Restart Button -->
+        <Button
+            android:id="@+id/restartButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔄 Restart Game"
+            android:visibility="gone"
+            android:padding="12dp"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="16dp"/>
+    </LinearLayout>
+
+    <!-- Game Over Overlay -->
+    <LinearLayout
+        android:id="@+id/gameOverLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="#AA000000"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/gameResultText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Game Over!"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/restartButtonOverlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔄 Restart Game"
+            android:padding="14dp"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"/>
+    </LinearLayout>
+
+</FrameLayout>
