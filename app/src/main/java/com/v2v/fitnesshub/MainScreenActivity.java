@@ -65,7 +65,8 @@ public class MainScreenActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             } else if (id == R.id.nav_plan) {
-                Toast.makeText(this, "Plan clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this,DietPlanActivity.class);
+                startActivity(intent);
                 return true;
             } else if (id == R.id.nav_tutorials) {
                 Toast.makeText(this, "Tutorials clicked", Toast.LENGTH_SHORT).show();

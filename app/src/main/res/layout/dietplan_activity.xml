@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#000000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Diet Plans"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Choose a predefined plan or generate your own AI-powered plan."
+            android:textSize="14sp"
+            android:textColor="#666666" />
+
+        <!-- AI CTA button moved to top -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGoToAi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="12dp"
+            android:text="✨ Generate AI Diet Plan"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/btn_ai_plan"
+            android:textColor="#FFFFFF"
+            android:padding="12dp"
+            android:elevation="6dp"
+            android:gravity="center"
+            app:cornerRadius="24dp"
+            app:backgroundTint="@null" />
+
+        <!-- Section title -->
+        <TextView
+            android:id="@+id/tvPredefinedTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Predefined Diet Plans"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+
+        <!-- RecyclerView grid: 10 items -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDietPlans"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:overScrollMode="never" />
+
+        <!-- Bottom spacing -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="24dp" />
+    </LinearLayout>
+</ScrollView>

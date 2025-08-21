@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_bg"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_margin="8dp">
+
+    <ImageView
+        android:id="@+id/ivPlanImage"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="Diet image"
+        android:src="@drawable/ic_weightloss" />
+
+    <TextView
+        android:id="@+id/tvPlanTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Weight Loss Plan (Indian)"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/tvPlanSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="Low-cal, high-fiber meals"
+        android:textSize="12sp"
+        android:textColor="#666666" />
+
+    <Button
+        android:id="@+id/btnViewPlan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="View Plan" />
+</LinearLayout>

@@ -47,6 +47,8 @@
         <activity android:name=".FitFlashActivity"/>
         <activity android:name=".MemoryTapActivity"/>
         <activity android:name=".QuizGameActivity"/>
+        <activity android:name=".DietPlanActivity"/>
+        <activity android:name=".DietPlanDetailsActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
