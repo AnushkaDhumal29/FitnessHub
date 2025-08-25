@@ -2,6 +2,7 @@ package com.v2v.fitnesshub;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ import java.util.Locale;
 
 public class MainScreenActivity extends AppCompatActivity {
 
+    private TextView streakTv;
     private EditText editSleep, editWorkout;
     private LinearLayout calendarRow;
     private HorizontalScrollView horizontalCalendarScroll;
@@ -43,6 +45,11 @@ public class MainScreenActivity extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottomNav); // BottomNavigationView
         TextView tvMonth = findViewById(R.id.tvMonth);
         imageView =findViewById(R.id.ivMenu);
+        streakTv = findViewById(R.id.streak);
+
+
+        // update streak
+        updateStreak();
 
         // Generate calendar
         generateHorizontalCalendar(calendarRow, tvMonth);
@@ -84,8 +91,8 @@ public class MainScreenActivity extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if (id == R.id.menu_profile) {
-                    Toast.makeText(MainScreenActivity.this, "Profile clicked", Toast.LENGTH_SHORT).show();
-                    // open profile activity
+                    Intent intent = new Intent(MainScreenActivity.this, ProfileViewActivity.class);
+                    startActivity(intent);
                 } else if (id == R.id.menu_info) {
                     Toast.makeText(MainScreenActivity.this, "Info clicked", Toast.LENGTH_SHORT).show();
                 } else if (id == R.id.menu_game) {
@@ -93,7 +100,10 @@ public class MainScreenActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else if (id == R.id.menu_nearby) {
                     Toast.makeText(MainScreenActivity.this, "Nearby Search clicked", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (id == R.id.menu_posts) {
+                    Intent intent = new Intent(MainScreenActivity.this,MyPostActivity.class);
+                    startActivity(intent);
+                }else {
                     return false;
                 }
 
@@ -221,6 +231,29 @@ public class MainScreenActivity extends AppCompatActivity {
 
         tvMonth.setText(new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(Calendar.getInstance().getTime()));
     }
+
+    private void updateStreak() {
+        SharedPreferences prefs = getSharedPreferences("streak_prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        // Get stored values
+        int currentStreak = prefs.getInt("streak", 0);
+        String lastDate = prefs.getString("last_date", "");
+
+        // Today's date in yyyy-MM-dd format
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
+
+        if (!today.equals(lastDate)) {
+            // New day → increase streak
+            currentStreak++;
+            editor.putInt("streak", currentStreak);
+            editor.putString("last_date", today);
+            editor.apply();
+        }
+
+        streakTv.setText("🔥 Streak: " + currentStreak);
+    }
+
 
 
 }

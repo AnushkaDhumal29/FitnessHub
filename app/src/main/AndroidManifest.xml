@@ -49,6 +49,8 @@
         <activity android:name=".QuizGameActivity"/>
         <activity android:name=".DietPlanActivity"/>
         <activity android:name=".DietPlanDetailsActivity"/>
+        <activity android:name=".ProfileViewActivity"/>
+        <activity android:name=".MyPostActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

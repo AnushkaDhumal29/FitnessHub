@@ -1,123 +1,145 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="#121212"
-    android:padding="20dp">
+    android:background="#121212">
 
-    <!-- Title -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Share Your Post"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="20dp"
-        android:letterSpacing="0.05"
-        android:fontFamily="sans-serif-medium" />
+    <!-- Main Content ScrollView (so post form scrolls if needed) -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Image Upload Area -->
-    <FrameLayout
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:background="@drawable/image_placeholder_bg"
-        android:layout_marginBottom="20dp"
-        android:foreground="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true">
-
-        <ImageView
-            android:id="@+id/ivPreview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_camera"
-            android:background="#222"
-            android:contentDescription="Preview Image" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="20dp">
 
-    </FrameLayout>
+            <!-- Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share Your Post"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="20dp"
+                android:letterSpacing="0.05"
+                android:fontFamily="sans-serif-medium" />
 
-    <!-- Camera and Gallery Buttons -->
-    <LinearLayout
-        android:layout_width="match_parent"
+            <!-- Image Upload Area -->
+            <FrameLayout
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:background="@drawable/image_placeholder_bg"
+                android:layout_marginBottom="20dp"
+                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/ivPreview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_camera"
+                    android:background="#222"
+                    android:contentDescription="Preview Image" />
+
+            </FrameLayout>
+
+            <!-- Camera and Gallery Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                android:weightSum="2">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCamera"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="Camera"
+                    app:backgroundTint="@color/green"
+                    android:textColor="#FFFFFF"
+                    app:icon="@drawable/ic_camera"
+                    app:iconTint="#FFFFFF"
+                    android:background="@drawable/button_camera"
+                    style="@style/Widget.MaterialComponents.Button" />
+
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGallery"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:text="Gallery"
+                    android:textColor="#FFFFFF"
+                    app:backgroundTint="@color/blue"
+                    app:icon="@drawable/ic_upload"
+                    app:iconTint="#FFFFFF"
+                    android:background="@drawable/button_gallery"
+                    style="@style/Widget.MaterialComponents.Button" />
+            </LinearLayout>
+
+            <!-- Post Text Box -->
+            <EditText
+                android:id="@+id/etPostText"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:hint="Write something inspiring..."
+                android:textColor="#FFFFFF"
+                android:textColorHint="#AAAAAA"
+                android:background="@drawable/bg_panel"
+                android:padding="14dp"
+                android:gravity="top|start"
+                android:inputType="textMultiLine"
+                android:fontFamily="sans-serif" />
+
+            <!-- Share Post Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnShare"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:text="Share Post"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="@color/orange"
+                android:textSize="18sp"
+                app:iconTint="#FFFFFF"
+                app:iconGravity="textStart"
+                android:background="@drawable/button_share"
+                style="@style/Widget.MaterialComponents.Button" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="20dp"
-        android:weightSum="2">
+        android:background="#1E1E1E"
+        app:itemIconTint="@color/bottom_nav_item_color"
+        app:itemTextColor="@color/bottom_nav_item_color"
+        app:menu="@menu/bottom_nav_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCamera"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:text="Camera"
-            app:backgroundTint="@color/green"
-            android:textColor="#FFFFFF"
-            app:icon="@drawable/ic_camera"
-            app:iconTint="#FFFFFF"
-            android:background="@drawable/button_camera"
-            style="@style/Widget.MaterialComponents.Button"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:letterSpacing="0.03" />
-
-        <Space
-            android:layout_width="16dp"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnGallery"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
-            android:text="Gallery"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="@color/blue"
-            app:icon="@drawable/ic_upload"
-            app:iconTint="#FFFFFF"
-            android:background="@drawable/button_gallery"
-            style="@style/Widget.MaterialComponents.Button"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:letterSpacing="0.03" />
-    </LinearLayout>
-
-    <!-- Post Text Box -->
-    <EditText
-        android:id="@+id/etPostText"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:hint="Write something inspiring..."
-        android:textColor="#FFFFFF"
-        android:textColorHint="#AAAAAA"
-        android:background="@drawable/bg_panel"
-        android:padding="14dp"
-        android:gravity="top|start"
-        android:inputType="textMultiLine"
-        android:fontFamily="sans-serif" />
-
-    <!-- Share Post Button -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnShare"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:text="Share Post"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        app:backgroundTint="@color/orange"
-        android:textSize="18sp"
-        app:iconTint="#FFFFFF"
-        app:iconGravity="textStart"
-        android:background="@drawable/button_share"
-        style="@style/Widget.MaterialComponents.Button"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:letterSpacing="0.04" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
