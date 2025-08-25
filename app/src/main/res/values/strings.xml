@@ -1,4 +1,16 @@
 <resources>
+    <!-- App name -->
     <string name="app_name">FitnessHub</string>
-    <string name="default_web_client_id">300469338729-3i8s8la1o0crshidkr7df2c6hs8g7qf7.apps.googleusercontent.com</string>
+
+    <!-- Google Sign-In client ID -->
+    <string name="default_web_client_id">
+        300469338729-3i8s8la1o0crshidkr7df2c6hs8g7qf7.apps.googleusercontent.com
+    </string>
+
+    <!-- Place types for nearby search -->
+    <string-array name="place_types">
+        <item>gym</item>
+        <item>hospital</item>
+        <item>doctor</item>
+    </string-array>
 </resources>

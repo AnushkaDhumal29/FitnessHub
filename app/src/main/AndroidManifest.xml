@@ -8,6 +8,10 @@
         android:required="false" />
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <!--mapsss-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <!--  Storage permissions -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
@@ -32,6 +36,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitnessHub"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBTzcHFv78SYN7x6U9UWv22nnfAV5uvHPk"/>
+
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true">
@@ -58,6 +67,11 @@
         <activity android:name=".BMICalculatorActivity"/>
         <activity android:name=".AboutActivity"/>
         <activity android:name=".MyPostActivity"/>
+        <activity android:name=".MappActivity"/>
+        <activity android:name=".DietMain"/>
+        <activity
+            android:name=".PlanResultActivity"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

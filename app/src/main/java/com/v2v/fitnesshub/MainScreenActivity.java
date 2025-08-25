@@ -123,6 +123,7 @@ public class MainScreenActivity extends AppCompatActivity {
                     startActivity(new Intent(MainScreenActivity.this, GameActivity.class));
                 } else if (id == R.id.menu_nearby) {
                     Toast.makeText(MainScreenActivity.this, "Nearby Search clicked", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainScreenActivity.this, MappActivity.class));
                 } else if (id == R.id.menu_posts) {
                     startActivity(new Intent(MainScreenActivity.this, MyPostActivity.class));
                 } else if (id == R.id.menu_BMI) {

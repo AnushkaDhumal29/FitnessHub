@@ -54,7 +54,7 @@ public class DietPlanActivity extends AppCompatActivity {
 
         // AI button → open AI Diet Plan Page
         btnGoToAi.setOnClickListener(v ->
-                Toast.makeText(this, "AI generated plan coming soon!", Toast.LENGTH_SHORT).show()
+                startActivity(new Intent(DietPlanActivity.this, DietMain.class))
         );
 
         // Handle Bottom Navigation clicks
