@@ -51,6 +51,7 @@
         <activity android:name=".DietPlanDetailsActivity"/>
         <activity android:name=".ProfileViewActivity"/>
         <activity android:name=".MyPostActivity"/>
+        <activity android:name=".AboutActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -3,6 +3,7 @@ package com.v2v.fitnesshub;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.EditText;
@@ -28,14 +29,13 @@ public class MainScreenActivity extends AppCompatActivity {
     private LinearLayout calendarRow;
     private HorizontalScrollView horizontalCalendarScroll;
 
-    ImageView imageView;
+    ImageView imageView, profile;
     private BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainscreen_activity);
-
 
         // Find views
         editSleep = findViewById(R.id.editSleep);
@@ -44,9 +44,9 @@ public class MainScreenActivity extends AppCompatActivity {
         horizontalCalendarScroll = findViewById(R.id.horizontalCalendarScroll);
         bottomNav = findViewById(R.id.bottomNav); // BottomNavigationView
         TextView tvMonth = findViewById(R.id.tvMonth);
-        imageView =findViewById(R.id.ivMenu);
+        imageView = findViewById(R.id.ivMenu);
         streakTv = findViewById(R.id.streak);
-
+        profile = findViewById(R.id.ivProfile);
 
         // update streak
         updateStreak();
@@ -68,11 +68,11 @@ public class MainScreenActivity extends AppCompatActivity {
                 Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show();
                 return true;
             } else if (id == R.id.nav_progress) {
-                Intent intent = new Intent(this,ProgressActivity.class);
+                Intent intent = new Intent(this, ProgressActivity.class);
                 startActivity(intent);
                 return true;
             } else if (id == R.id.nav_plan) {
-                Intent intent = new Intent(this,DietPlanActivity.class);
+                Intent intent = new Intent(this, DietPlanActivity.class);
                 startActivity(intent);
                 return true;
             } else if (id == R.id.nav_tutorials) {
@@ -94,16 +94,17 @@ public class MainScreenActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainScreenActivity.this, ProfileViewActivity.class);
                     startActivity(intent);
                 } else if (id == R.id.menu_info) {
-                    Toast.makeText(MainScreenActivity.this, "Info clicked", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainScreenActivity.this, AboutActivity.class);
+                    startActivity(intent);
                 } else if (id == R.id.menu_game) {
                     Intent intent = new Intent(MainScreenActivity.this, GameActivity.class);
                     startActivity(intent);
                 } else if (id == R.id.menu_nearby) {
                     Toast.makeText(MainScreenActivity.this, "Nearby Search clicked", Toast.LENGTH_SHORT).show();
                 } else if (id == R.id.menu_posts) {
-                    Intent intent = new Intent(MainScreenActivity.this,MyPostActivity.class);
+                    Intent intent = new Intent(MainScreenActivity.this, MyPostActivity.class);
                     startActivity(intent);
-                }else {
+                } else {
                     return false;
                 }
 
@@ -112,7 +113,6 @@ public class MainScreenActivity extends AppCompatActivity {
 
             popup.show();
         });
-
 
         // Scroll listener for dynamic month update
         horizontalCalendarScroll.getViewTreeObserver().addOnScrollChangedListener(() -> {
@@ -159,7 +159,6 @@ public class MainScreenActivity extends AppCompatActivity {
         );
         dialog.show();
     }
-
 
     private void generateHorizontalCalendar(LinearLayout calendarRow, TextView tvMonth) {
         Calendar calendar = Calendar.getInstance();
@@ -254,6 +253,20 @@ public class MainScreenActivity extends AppCompatActivity {
         streakTv.setText("🔥 Streak: " + currentStreak);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        // Load profile image from SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("user_profile", MODE_PRIVATE);
 
+        String profileUri = preferences.getString("profileUri", null);
+
+        if (profileUri != null) {
+            Uri uri = Uri.parse(profileUri);
+            profile.setImageURI(uri);   // Show saved image in MainActivity
+        } else {
+            profile.setImageResource(R.drawable.ic_person); // default image
+        }
+    }
 }
