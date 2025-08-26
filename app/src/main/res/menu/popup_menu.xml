@@ -17,9 +17,6 @@
         android:id="@+id/menu_nearby"
         android:title="Nearby Search"/>
     <item
-        android:id="@+id/menu_posts"
-        android:title="My Posts"/>
-    <item
         android:id="@+id/menu_BMI"
         android:title="BMI Calculator"/>
 

@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(this, "Welcome back " + user.getEmail(), Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(MainActivity.this, MainScreenActivity.class));
+                                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                                 finish();
                             } else {
                                 Toast.makeText(this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

@@ -1,5 +1,6 @@
 package com.v2v.fitnesshub;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
@@ -115,9 +116,9 @@ public class MainScreenActivity extends AppCompatActivity {
             popup.setOnMenuItemClickListener(item -> {
                 int id = item.getItemId();
                 if (id == R.id.menu_profile) {
-                    Toast.makeText(MainScreenActivity.this, "Profile clicked", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainScreenActivity.this, ProfileViewActivity.class));
                 } else if (id == R.id.menu_info) {
-                    Toast.makeText(MainScreenActivity.this, "Info clicked", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainScreenActivity.this, AboutActivity.class));
                 } else if (id == R.id.menu_game) {
                     startActivity(new Intent(MainScreenActivity.this, GameActivity.class));
                 } else if (id == R.id.menu_nearby) {
@@ -183,6 +184,7 @@ public class MainScreenActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
+    @SuppressLint("ScheduleExactAlarm")
     private void setAlarm(String message, Calendar calendar, int reqCode) {
         Intent intent = new Intent(this, ReminderReciver.class);
         intent.putExtra("msg", message);
