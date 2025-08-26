@@ -2,21 +2,27 @@ package com.v2v.fitnesshub;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
 public class DietPlanActivity extends AppCompatActivity {
 
     RecyclerView rvDietPlans;
-    Button btnGoToAi;
+    MaterialButton btnGoToAi;
     ArrayList<DietPlanModel> dietPlans;
     DietPlanAdapter adapter;
+    BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,7 @@ public class DietPlanActivity extends AppCompatActivity {
 
         rvDietPlans = findViewById(R.id.rvDietPlans);
         btnGoToAi = findViewById(R.id.btnGoToAi);
+        bottomNav = findViewById(R.id.bottomNav);
 
         // Setup RecyclerView
         rvDietPlans.setLayoutManager(new GridLayoutManager(this, 2));
@@ -47,7 +54,31 @@ public class DietPlanActivity extends AppCompatActivity {
 
         // AI button → open AI Diet Plan Page
         btnGoToAi.setOnClickListener(v ->
-                Toast.makeText(this, "Ai generated plan", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "AI generated plan coming soon!", Toast.LENGTH_SHORT).show()
         );
+
+        // Handle Bottom Navigation clicks
+        // ✅ Setup Bottom Navigation
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
+        bottomNav.setSelectedItemId(R.id.nav_plan); // highlight current tab
+
+        // BottomNavigationView item selection
+        bottomNav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_home) {
+                Intent intent = new Intent(this,MainScreenActivity.class);
+                startActivity(intent);
+            } else if (id == R.id.nav_progress) {
+                Intent intent = new Intent(this,ProgressActivity.class);
+                startActivity(intent);
+                return true;
+            } else if (id == R.id.nav_tutorials) {
+                Toast.makeText(this, "Tutorials clicked", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            return false;
+        });
     }
 }

@@ -3,18 +3,25 @@ package com.v2v.fitnesshub;
 import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.*;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -80,6 +87,29 @@ public class ProgressActivity extends AppCompatActivity {
 
         // 📤 Share button
         btnShare.setOnClickListener(v -> sharePost());
+
+        // ✅ Setup Bottom Navigation
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
+        bottomNav.setSelectedItemId(R.id.nav_progress); // highlight current tab
+
+        // BottomNavigationView item selection
+        bottomNav.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if (id == R.id.nav_home) {
+                Intent intent = new Intent(this,MainScreenActivity.class);
+                startActivity(intent);
+            } else if (id == R.id.nav_plan) {
+                Intent intent = new Intent(this,DietPlanActivity.class);
+                startActivity(intent);
+                return true;
+            } else if (id == R.id.nav_tutorials) {
+                Toast.makeText(this, "Tutorials clicked", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            return false;
+        });
     }
 
     // ---- Open Camera ----
@@ -109,6 +139,10 @@ public class ProgressActivity extends AppCompatActivity {
             return;
         }
 
+        // ✅ Save post locally
+        savePostLocally(text, imageUri);
+
+        // 🔗 Share outside app
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         if (imageUri != null) {
             shareIntent.setType("image/*");
@@ -122,20 +156,29 @@ public class ProgressActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(shareIntent, "Share via"));
     }
 
-    // ---- Handle Camera Permission ----
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    // ---- Save post locally ----
+    private void savePostLocally(String text, Uri imageUri) {
+        long timestamp = System.currentTimeMillis();
 
-        if (requestCode == CAMERA_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                openCamera();
-            } else {
-                Toast.makeText(this, "Camera Permission Denied", Toast.LENGTH_SHORT).show();
-            }
+        try {
+            SharedPreferences prefs = getSharedPreferences("MyPosts", MODE_PRIVATE);
+            String existingPosts = prefs.getString("posts", "[]");
+
+            JSONArray postArray = new JSONArray(existingPosts);
+
+            JSONObject newPost = new JSONObject();
+            newPost.put("text", text);
+            newPost.put("image", imageUri != null ? imageUri.toString() : null);
+            newPost.put("time", timestamp);
+
+            postArray.put(newPost);
+
+            prefs.edit().putString("posts", postArray.toString()).apply();
+
+            Toast.makeText(this, "Post saved locally!", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error saving post!", Toast.LENGTH_SHORT).show();
         }
     }
 }
-

@@ -37,7 +37,7 @@
             android:layout_gravity="center"
             android:src="@drawable/ic_person"
             app:shapeAppearanceOverlay="@style/CircleImage"
-            app:strokeColor="@color/white"
+            app:strokeColor="@android:color/white"
             app:strokeWidth="2dp"
             android:layout_marginBottom="8dp"/>
 
