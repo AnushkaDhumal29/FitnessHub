@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Outer Container with glowing border -->
+            <!-- Outer Container -->
             <LinearLayout
                 android:id="@+id/container"
                 android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                         android:layout_width="28dp"
                         android:layout_height="28dp"
                         android:src="@drawable/ic_menu"
-                        android:tint="#FFFFFF" />
+                        app:tint="#FFFFFF"/>
 
                     <View
                         android:layout_width="0dp"
@@ -58,9 +58,10 @@
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:src="@drawable/ic_person"
-                        android:tint="#FFFFFF"/>
+                        app:tint="#FFFFFF"/>
                 </LinearLayout>
 
+                <!-- Month -->
                 <TextView
                     android:id="@+id/tvMonth"
                     android:layout_width="wrap_content"
@@ -121,7 +122,7 @@
                     android:rowCount="2"
                     android:layout_marginBottom="16dp">
 
-                    <!-- Steps -->
+                    <!-- Distance -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="120dp"
@@ -135,14 +136,15 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="👣 Steps"
+                            android:text="📏 Distance"
                             android:textColor="#00E5FF"
                             android:textSize="16sp"/>
 
                         <TextView
+                            android:id="@+id/tvDistance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="8,543"
+                            android:text="0 km"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold"
                             android:textSize="20sp"/>
@@ -167,36 +169,10 @@
                             android:textSize="16sp"/>
 
                         <TextView
+                            android:id="@+id/tvHeartRate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="78 bpm"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold"
-                            android:textSize="20sp"/>
-                    </LinearLayout>
-
-                    <!-- Body Oxygen -->
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_columnWeight="1"
-                        android:layout_rowWeight="1"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:layout_margin="8dp"
-                        android:background="@drawable/bg_card">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🫁 SpO₂"
-                            android:textColor="#00E5FF"
-                            android:textSize="16sp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="97%"
+                            android:text="0 bpm"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold"
                             android:textSize="20sp"/>
@@ -221,13 +197,43 @@
                             android:textSize="16sp"/>
 
                         <TextView
+                            android:id="@+id/tvCalories"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="345 kcal"
+                            android:text="0 kcal"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold"
                             android:textSize="20sp"/>
                     </LinearLayout>
+
+                    <!-- Steps -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_columnWeight="1"
+                        android:layout_rowWeight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_margin="8dp"
+                        android:background="@drawable/bg_card">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="👣 Steps"
+                            android:textColor="#00E5FF"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/tvSteps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 Steps"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:textSize="20sp"/>
+                    </LinearLayout>
+
                 </GridLayout>
 
                 <!-- Reminders -->
@@ -251,21 +257,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="💤 Set Sleep Time"
-                        android:textColor="#FFFFFF"
-                        android:textColorHint="#80FFFFFF"
                         android:focusable="false"
                         android:cursorVisible="false"
                         android:background="@drawable/bg_card"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#80FFFFFF"
                         android:padding="12dp"
                         android:layout_marginBottom="8dp"/>
 
                     <!-- Water Reminder -->
                     <TextView
+                        android:id="@+id/tvWater"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="💧 Drink Water (8 glasses)"
-                        android:textColor="#FFFFFF"
                         android:background="@drawable/bg_card"
+                        android:textColor="#FFFFFF"
                         android:padding="12dp"
                         android:layout_marginBottom="8dp"/>
 
@@ -275,11 +282,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="🏋️ Set Workout Time"
-                        android:textColor="#FFFFFF"
-                        android:textColorHint="#80FFFFFF"
                         android:focusable="false"
                         android:cursorVisible="false"
                         android:background="@drawable/bg_card"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#80FFFFFF"
                         android:padding="12dp"/>
                 </LinearLayout>
 

@@ -2,11 +2,11 @@ package com.v2v.fitnesshub;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.View;
 import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,10 +27,12 @@ public class ProfileActivity extends AppCompatActivity {
     private static final int REQUEST_CAMERA = 1;
     private static final int REQUEST_GALLERY = 2;
 
+    private Uri selectedImageUri = null; // To store chosen image URI
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile); // Change to your XML file name
+        setContentView(R.layout.activity_profile);
 
         // Initialize Views
         ivProfile = findViewById(R.id.ivProfile);
@@ -54,7 +56,10 @@ public class ProfileActivity extends AppCompatActivity {
         findViewById(R.id.btnGallery).setOnClickListener(v -> openGallery());
 
         // Remove Pic Button
-        findViewById(R.id.btnRemovePic).setOnClickListener(v -> ivProfile.setImageResource(R.drawable.ic_person));
+        findViewById(R.id.btnRemovePic).setOnClickListener(v -> {
+            ivProfile.setImageResource(R.drawable.ic_person);
+            selectedImageUri = null;
+        });
 
         // Date of Birth Picker
         etDob.setOnClickListener(v -> openDatePicker());
@@ -78,25 +83,39 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     // Handle Image Selection
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && data != null) {
-            if (requestCode == REQUEST_CAMERA) {
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
-                ivProfile.setImageBitmap(photo);
-            } else if (requestCode == REQUEST_GALLERY) {
-                Uri imageUri = data.getData();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                    ivProfile.setImageBitmap(bitmap);
-                } catch (IOException e) {
-                    e.printStackTrace();
+            try {
+                if (requestCode == REQUEST_CAMERA) {
+                    Bitmap photo = (Bitmap) data.getExtras().get("data");
+                    ivProfile.setImageBitmap(photo);
+
+                    // Save temporarily in MediaStore and get URI
+                    String path = MediaStore.Images.Media.insertImage(
+                            getContentResolver(), photo,
+                            "profile_pic_" + System.currentTimeMillis(), null);
+                    if (path != null) selectedImageUri = Uri.parse(path);
+
+                } else if (requestCode == REQUEST_GALLERY) {
+                    selectedImageUri = data.getData();
+                    if (selectedImageUri != null) {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(
+                                this.getContentResolver(), selectedImageUri);
+                        ivProfile.setImageBitmap(bitmap);
+                    }
                 }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error loading image", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
 
     // Date Picker for DOB
     private void openDatePicker() {
@@ -112,7 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
         datePicker.show();
     }
 
-    // Save Profile (Just showing in Toast for now)
+    // Save Profile -> store in SharedPreferences and go to MainScreenActivity
     private void saveProfile() {
         String fullName = etFullName.getText().toString().trim();
         String username = etUsername.getText().toString().trim();
@@ -126,16 +145,24 @@ public class ProfileActivity extends AppCompatActivity {
         if (rbMale.isChecked()) gender = "Male";
         else if (rbFemale.isChecked()) gender = "Female";
 
-        String result = "Name: " + fullName +
-                "\nUsername: " + username +
-                "\nGender: " + gender +
-                "\nDOB: " + dob +
-                "\nHeight: " + height +
-                "\nWeight: " + weight +
-                "\nGoal: " + goal +
-                "\nMedical: " + medical;
+        // Save everything in SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("user_profile", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("fullName", fullName);
+        editor.putString("username", username);
+        editor.putString("dob", dob);
+        editor.putString("height", height);
+        editor.putString("weight", weight);
+        editor.putString("goal", goal);
+        editor.putString("medical", medical);
+        editor.putString("gender", gender);
 
-        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+        if (selectedImageUri != null) {
+            editor.putString("profileUri", selectedImageUri.toString()); // save as string
+        }
+        editor.apply();
+
+        // Go to MainScreen
         Intent intent = new Intent(ProfileActivity.this, MainScreenActivity.class);
         startActivity(intent);
         finish();

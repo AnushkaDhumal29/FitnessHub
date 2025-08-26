@@ -5,13 +5,19 @@
     android:layout_height="match_parent"
     android:background="@color/black">
 
-    <!-- Video background -->
+    <!-- Fullscreen video background -->
     <VideoView
         android:id="@+id/videoView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop" />
+        android:layout_height="match_parent"
+        android:focusable="false"
+        android:clickable="false" />
 
+    <!-- Dim overlay for readability -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000" />
 
     <!-- Center card -->
     <LinearLayout
@@ -21,13 +27,12 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="130dp"
         android:layout_marginStart="24dp"
-         android:layout_marginEnd="24dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/bg_panel"
         android:padding="12dp"
-       android:orientation="vertical">
+        android:orientation="vertical">
 
-
-    <!-- Segmented toggle for login/register -->
+        <!-- Segmented toggle for login/register -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -97,7 +102,7 @@
                     android:paddingEnd="10dp"
                     android:textColor="@color/white"
                     android:textColorHint="#FF4B2B"
-                    android:inputType="textPersonName" />
+                    android:inputType="textEmailAddress" />
 
                 <EditText
                     android:id="@+id/etLoginPassword"

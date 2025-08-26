@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <!--  Storage permissions -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -16,6 +17,10 @@
 
     <!--  For Android 13+ (API 33) to read gallery images -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="android.permission.BODY_SENSORS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -49,6 +54,8 @@
         <activity android:name=".QuizGameActivity"/>
         <activity android:name=".DietPlanActivity"/>
         <activity android:name=".DietPlanDetailsActivity"/>
+        <activity android:name=".ProfileViewActivity"/>
+        <activity android:name=".BMICalculatorActivity"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -59,6 +66,13 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <receiver android:name=".ReminderReciver" android:exported="true"/>
+
+        <activity android:name=".AlarmActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+
+
     </application>
 
 </manifest>
