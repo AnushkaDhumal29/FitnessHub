@@ -7,6 +7,8 @@
         android:name="android.hardware.camera"
         android:required="false" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
 
     <!--mapsss-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -39,7 +41,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBTzcHFv78SYN7x6U9UWv22nnfAV5uvHPk"/>
+            android:value="AIzaSyBGjI21Bz9HYR0v8cLJwuWzyERc3GaHmko"/>
 
         <activity
             android:name=".SplashScreenActivity"
@@ -69,6 +71,7 @@
         <activity android:name=".MyPostActivity"/>
         <activity android:name=".MappActivity"/>
         <activity android:name=".DietMain"/>
+        <activity android:name=".TutorialsActivity"/>
         <activity
             android:name=".PlanResultActivity"
             android:exported="false" />
@@ -88,6 +91,7 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
 
+        <activity android:name=".VideoPlayerActivity"/>
 
     </application>
 

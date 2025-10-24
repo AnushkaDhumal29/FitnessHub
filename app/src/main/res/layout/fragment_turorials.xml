@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="#000000"
+    tools:ignore="ExtraText">   <!-- 🔹 Full screen black background -->
+
+    <!-- Spinner -->
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/exerciseSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#FFFFFF"
+         android:popupBackground="#1C1C1C"
+         android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
+
+    <!-- SearchView -->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchViewExercises"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="Search exercises..."
+        android:layout_marginBottom="8dp"
+        android:background="#1C1C1C"
+    android:iconifiedByDefault="false"
+    android:queryBackground="@android:color/transparent"
+    android:layoutDirection="ltr"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    
+    android:textColorHint="#B0B0B0"
+    android:textColor="#FFFFFF" />
+
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewExercises"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:background="#000000" />  <!-- 🔹 Black background for item area -->
+
+</LinearLayout>

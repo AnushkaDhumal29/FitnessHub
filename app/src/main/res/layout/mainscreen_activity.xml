@@ -55,10 +55,13 @@
 
                     <ImageView
                         android:id="@+id/ivProfile"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/ic_person"
-                        app:tint="#FFFFFF"/>
+                        android:background="@drawable/ic_circle"
+                        android:clipToOutline="true"/>
+
                 </LinearLayout>
 
                 <!-- Month -->
@@ -106,6 +109,7 @@
                         android:textSize="20sp"/>
 
                     <TextView
+                        android:id="@+id/streak"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="🔥 3-Day Streak"

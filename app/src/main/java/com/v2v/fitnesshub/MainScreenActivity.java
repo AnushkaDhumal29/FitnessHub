@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,7 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.fitness.Fitness;
@@ -32,13 +36,14 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class MainScreenActivity extends AppCompatActivity {
-
+    private TextView streakTv;
     private EditText editSleep, editWorkout;
     private TextView tvWater;
     private LinearLayout calendarRow;
     private HorizontalScrollView horizontalCalendarScroll;
+    private ImageView imageView, profile;
     private BottomNavigationView bottomNav;
-    private ImageView imageView;
+
 
     // Fitness TextViews
     private TextView tvHeartRate, tvDistance, tvCalories, tvSteps;
@@ -68,7 +73,9 @@ public class MainScreenActivity extends AppCompatActivity {
         tvHeartRate = findViewById(R.id.tvHeartRate);
         tvCalories = findViewById(R.id.tvCalories);
         tvSteps = findViewById(R.id.tvSteps);
-
+        streakTv = findViewById(R.id.streak);
+        profile = findViewById(R.id.ivProfile);
+        updateStreak();
         // Default values
         tvDistance.setText("0 km");
         tvHeartRate.setText("0 bpm");
@@ -103,7 +110,7 @@ public class MainScreenActivity extends AppCompatActivity {
                 startActivity(new Intent(this, DietPlanActivity.class));
                 return true;
             } else if (id == R.id.nav_tutorials) {
-                Toast.makeText(this, "Tutorials clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, TutorialsActivity.class));
                 return true;
             }
             return false;
@@ -344,4 +351,49 @@ public class MainScreenActivity extends AppCompatActivity {
 
         tvMonth.setText(new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(Calendar.getInstance().getTime()));
     }
+
+    private void updateStreak() {
+        SharedPreferences prefs = getSharedPreferences("streak_prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        // Get stored values
+        int currentStreak = prefs.getInt("streak", 0);
+        String lastDate = prefs.getString("last_date", "");
+
+        // Today's date in yyyy-MM-dd format
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
+
+        if (!today.equals(lastDate)) {
+            // New day → increase streak
+            currentStreak++;
+            editor.putInt("streak", currentStreak);
+            editor.putString("last_date", today);
+            editor.apply();
+        }
+
+        streakTv.setText("🔥 Streak: " + currentStreak);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Load profile image from SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("user_profile", MODE_PRIVATE);
+        String profileUri = preferences.getString("profileUri", null);
+
+        if (profileUri != null) {
+            Uri uri = Uri.parse(profileUri);
+
+            // ✅ Use Glide instead of setImageURI (more reliable)
+            Glide.with(this)
+                    .load(uri)
+                    .placeholder(R.drawable.ic_person) // default icon
+                    .circleCrop() // make it circular
+                    .into(profile);
+        } else {
+            profile.setImageResource(R.drawable.ic_person); // default image
+        }
+    }
 }
+
